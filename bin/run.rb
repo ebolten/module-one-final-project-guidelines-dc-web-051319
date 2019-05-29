@@ -1,8 +1,26 @@
 require_relative '../config/environment'
-require_relative '../lib/traveller.rb'
-require_relative '../lib/booking.rb'
-require_relative '../lib/destination.rb'
+
+require 'pry'
+
+
+pry.start
+
+puts "-----INFO-----"
+#the introduction
+intro()
+#create a new traveller
+emily = get_traveller()
+shu = get_traveller()
 
 
 
-puts "HELLO WORLD"
+puts "-----TESTING-----"
+
+# puts "Travellers: #{Traveller.all}"
+
+
+
+
+
+
+puts "-----TESTING-----"
