@@ -60,6 +60,7 @@ end
 #will create a new destination based on chosen city
 def get_destination(city)
     destination = Destination.create(city:city)
+    return destination
 end
 
 #will create a new destination based on chosen city
@@ -71,27 +72,81 @@ def calculate_text
     puts "Calculating travel destinations based on your budget. . ."
 end
 
-#returns the hash of cities
-def city_hash
+#returns the hash of cities to travel to by plane
+def city_hash_planes
     cities = {
-        "Tokyo" => 5,
-        "Seattle" => 1,
-        "Istanbul" => 4
+        "Tokyo, Japan" => 920,
+        "Sapporo, Japan" => 1700,
+        "Seattle Washington, United States" => 80,
+        "Istanbul, Turkey" => 526,
+        "Düsseldorf, Germany" => 413,
+        "Austin Texas, United States" => 130
+    }
+    return cities
+end
+
+#returns the hash of cities to travel to by train
+def city_hash_trains
+    cities = {
+        "Tokyo, Japan" => 920,
+        "Sapporo, Japan" => 1700,
+        "Seattle Washington, United States" => 80,
+        "Istanbul, Turkey" => 526,
+        "Düsseldorf, Germany" => 413,
+        "Austin Texas, United States" => 130
+    }
+    return cities
+end
+
+#returns the hash of cities to travel to by train
+def city_hash_buses
+    cities = {
+        "Tokyo, Japan" => 920,
+        "Sapporo, Japan" => 1700,
+        "Seattle Washington, United States" => 80,
+        "Istanbul, Turkey" => 526,
+        "Düsseldorf, Germany" => 413,
+        "Austin Texas, United States" => 130
     }
     return cities
 end
 
 #will output all the cities to the user
-def output_cities(city_hash)
-    city_hash.each do |city,price|
-        puts "#{city}: $#{price}"
+def valid_cities(city_hash,traveller)
+    non_international_cities = {}
+
+    if travel_internationally?() == false
+        traveller_country = traveller.start.split(", ")
+        city_hash.each do |city,price|
+            array_city = city.split(", ")
+
+            if traveller_country[1] == array_city[1]
+                non_international_cities[city] = price
+            end
+        end
+        city_hash = non_international_cities
     end
+    return city_hash
+end
+
+#print valid cities
+def print_cities(city_hash,traveller)
+    affordable_cities = {}
+    city_hash.each do |city,price|
+        if price <= traveller.budget
+            puts "#{city}: $#{price}"
+            affordable_cities[city] = price
+        end
+    end
+    return affordable_cities
 end
 
 #returns the user's selected city
-def select_city
+def select_city(cities_you_can_afford)
     puts "Choose Your Destination:"
     user_choice = gets.chomp.to_s
-    return user_choice
-end
 
+    cities_you_can_afford.find do |city,price|
+        user_choice == city
+    end
+end
