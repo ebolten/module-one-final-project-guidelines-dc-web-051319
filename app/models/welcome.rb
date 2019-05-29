@@ -57,16 +57,41 @@ def travel_internationally?
     end
 end
 
+#will create a new destination based on chosen city
 def get_destination(city)
     destination = Destination.create(city:city)
 end
 
+#will create a new destination based on chosen city
 def get_booking()
-    
-
 end
 
 #message while calulating city
 def calculate_text
     puts "Calculating travel destinations based on your budget. . ."
 end
+
+#returns the hash of cities
+def city_hash
+    cities = {
+        "Tokyo" => 5,
+        "Seattle" => 1,
+        "Istanbul" => 4
+    }
+    return cities
+end
+
+#will output all the cities to the user
+def output_cities(city_hash)
+    city_hash.each do |city,price|
+        puts "#{city}: $#{price}"
+    end
+end
+
+#returns the user's selected city
+def select_city
+    puts "Choose Your Destination:"
+    user_choice = gets.chomp.to_s
+    return user_choice
+end
+
