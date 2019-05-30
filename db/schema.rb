@@ -16,11 +16,11 @@ ActiveRecord::Schema.define(version: 3) do
     t.integer "price"
     t.integer "traveller_id"
     t.integer "destination_id"
+    t.string "transport"
   end
 
   create_table "destinations", force: :cascade do |t|
     t.string "city"
-    t.string "start"
   end
 
   create_table "travellers", force: :cascade do |t|

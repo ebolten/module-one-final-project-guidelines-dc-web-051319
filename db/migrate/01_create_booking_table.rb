@@ -4,6 +4,7 @@ class CreateBookingTable < ActiveRecord::Migration[5.1]
             t.integer :price
             t.integer :traveller_id
             t.integer :destination_id
+            t.string :transport
         end
     end
 end

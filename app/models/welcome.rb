@@ -1,6 +1,9 @@
 require_relative 'destination.rb'
 require_relative 'traveller.rb'
 require_relative 'booking.rb'
+require_relative 'city_hash_planes.rb'
+require_relative 'city_hash_train.rb'
+require_relative 'city_hash_bus.rb'
 
 #the welcome message
 def intro
@@ -11,13 +14,13 @@ end
 def get_traveller
     puts "Please Enter Your Name:"
     name = gets.chomp.to_s
-
+    puts "\n"
     puts "Please Enter Your Start Location:"
     start = gets.chomp.to_s
-
+    puts "\n"
     puts "Please Enter Your Budget:"
     budget = gets.chomp.to_i
-
+    
     #creating a new traveller and adding it to the database
     traveller = Traveller.create(name:name,budget:budget,start:start)
     return traveller
@@ -63,112 +66,9 @@ def get_destination(city)
     return destination
 end
 
-#will create a new destination based on chosen city
-def get_booking()
-end
-
 #message while calulating city
 def calculate_text
     puts "Calculating travel destinations based on your budget. . ."
-end
-
-#returns the hash of cities to travel to by plane
-def city_hash_planes
-    cities = {
-        "Tokyo, Japan" => 920,
-        "Sapporo, Japan" => 1700,
-        "Seattle Washington, United States" => 80,
-        "New York City, United States" => 370,
-        "Istanbul, Turkey" => 526,
-        "Düsseldorf, Germany" => 413,
-        "Austin Texas, United States" => 130
-        "Miraflores, Peru" => 230,
-        "Luxembourg City, Luxumbourg" => 1200,
-        "London, United Kingdom" => 640,
-        "Tunis, Tunisia" => 900,
-        "Havana, Cuba" => 340,
-        "St. Petersburg, Russia" => 990,
-        "Kiev, Ukraine" => 755,
-        "Prague, Czech Republic" => 500,
-        "Vienna, Austria" => 460,
-        "Jerusalem, Israel" => 1300,
-        "Ottawa, Canada" => 100,
-        "Vancouver, Canada" => 62,
-        "New Delhi, India" => 1000,
-        "Bogotá, Colombia" => 290,
-        "Milan, Italy" => 690,
-        "Rome, Italy" => 800,
-        "Amelia, Italy" => 190,
-        "Barcelona, Spain" => 700,
-        "Reykjavík, Iceland" => 400
-    }
-    return cities
-end
-
-#returns the hash of cities to travel to by train
-def city_hash_trains
-    cities = {
-        "Tokyo, Japan" => 920,
-        "Sapporo, Japan" => 1700,
-        "Seattle Washington, United States" => 80,
-        "New York City, United States" => 370,
-        "Istanbul, Turkey" => 526,
-        "Düsseldorf, Germany" => 413,
-        "Austin Texas, United States" => 130
-        "Miraflores, Peru" => 230,
-        "Luxembourg City, Luxumbourg" => 1200,
-        "London, United Kingdom" => 640,
-        "Tunis, Tunisia" => 900,
-        "Havana, Cuba" => 340,
-        "St. Petersburg, Russia" => 990,
-        "Kiev, Ukraine" => 755,
-        "Prague, Czech Republic" => 500,
-        "Vienna, Austria" => 460,
-        "Jerusalem, Israel" => 1300,
-        "Ottawa, Canada" => 100,
-        "Vancouver, Canada" => 62,
-        "New Delhi, India" => 1000,
-        "Bogotá, Colombia" => 290,
-        "Milan, Italy" => 690,
-        "Rome, Italy" => 800,
-        "Amelia, Italy" => 190,
-        "Barcelona, Spain" => 700,
-        "Reykjavík, Iceland" => 400
-    }
-    return cities
-end
-
-#returns the hash of cities to travel to by train
-def city_hash_buses
-    cities = {
-        "Tokyo, Japan" => 920,
-        "Sapporo, Japan" => 1700,
-        "Seattle Washington, United States" => 80,
-        "New York City, United States" => 370,
-        "Istanbul, Turkey" => 526,
-        "Düsseldorf, Germany" => 413,
-        "Austin Texas, United States" => 130
-        "Miraflores, Peru" => 230,
-        "Luxembourg City, Luxumbourg" => 1200,
-        "London, United Kingdom" => 640,
-        "Tunis, Tunisia" => 900,
-        "Havana, Cuba" => 340,
-        "St. Petersburg, Russia" => 990,
-        "Kiev, Ukraine" => 755,
-        "Prague, Czech Republic" => 500,
-        "Vienna, Austria" => 460,
-        "Jerusalem, Israel" => 1300,
-        "Ottawa, Canada" => 100,
-        "Vancouver, Canada" => 62,
-        "New Delhi, India" => 1000,
-        "Bogotá, Colombia" => 290,
-        "Milan, Italy" => 690,
-        "Rome, Italy" => 800,
-        "Amelia, Italy" => 190,
-        "Barcelona, Spain" => 700,
-        "Reykjavík, Iceland" => 400
-    }
-    return cities
 end
 
 #will output all the cities to the user
@@ -181,6 +81,7 @@ def valid_cities(city_hash,traveller)
             array_city = city.split(", ")
 
             if traveller_country[1] == array_city[1]
+                price -= 100
                 non_international_cities[city] = price
             end
         end
@@ -206,7 +107,68 @@ def select_city(cities_you_can_afford)
     puts "Choose Your Destination:"
     user_choice = gets.chomp.to_s
 
-    cities_you_can_afford.find do |city,price|
-        user_choice == city
+    affordable_city = []
+
+    cities_you_can_afford.each do |city,price|
+        if city.to_s == user_choice
+            affordable_city << city
+            affordable_city << price
+        end
     end
+    return affordable_city
+end
+
+#will create a new destination based on chosen city
+def get_booking(price,traveller_id,destination_id,transportation)
+    booking = Booking.create(price:price,traveller_id:traveller_id,destination_id:destination_id,transport:transportation)
+    return booking
+end
+
+#the new currency
+def new_currency(country)
+    currency = nil
+    case country
+        when "United States"
+            currency = "US Dollar"
+        when "Italy"
+            currency = "Euro"
+        when "Germany"
+            currency = "Euro"
+        when "Luxembourg"
+            currency = "Euro"
+        when "United Kingdom"
+            currency = "Great Britain Pound"
+        when "Tunisia"
+            currency = "Dinar"
+        when "Russia"
+            currency = "Ruble"
+        when "Cuba"
+            currency = "Peso"
+        when "Iceland"
+            currency = "Króna"
+        when "Ukrain"
+            currency = "Hryvnia"
+        when "Czech Republic"
+            currency = "Koruna"
+        when "Israel"
+            currency = "Shekel"
+        when "Austria"
+            currency = "Euro"
+        when "Canada"
+            currency = "Canadian Dollar"
+        when "India"
+            currency = "Rupee"
+        when "Spain"
+            currency = "Euro"
+        when "Peru"
+            currency = "Sole"
+        when "Japan"
+            currency = "Yen"
+        when "Turkey"
+            currency = "Lira"
+        else
+            currency = "unknown for this country"
+        end
+
+        puts "The Currency You'll Need for Your Trip is the: #{currency}."
 end
