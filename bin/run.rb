@@ -48,6 +48,9 @@ def use_app
     system "clear"
     puts "\n"
     puts "You're booking will be $#{user_booking.price}."
+    puts "You have $#{frugal_traveller_user.budget.to_i - user_booking.price.to_i} left out of $#{frugal_traveller_user.budget.to_i}."
+    puts "\n"
+
     puts "You will be leaving from #{frugal_traveller_user.start}"
     puts "You will be arriving to #{chosen_destination.city}"
     puts "\n"
