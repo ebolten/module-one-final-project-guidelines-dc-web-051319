@@ -57,3 +57,7 @@ Projects need to be approved prior to launching into them, so take some time to 
 # in config/environment.rb add this line:
 ActiveRecord::Base.logger = nil
 ```
+
+
+## DESCRIPTION
+Frugal Travel is an application that is designed to help people find travel options and destinations within their price range. They can select whether they would like to travel internationally, what type of transportation method they would like to use, and more.

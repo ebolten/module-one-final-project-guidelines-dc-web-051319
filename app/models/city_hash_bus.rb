@@ -26,7 +26,8 @@ def city_hash_buses
         "Rome, Italy" => 80,
         "Amelia, Italy" => 15,
         "Barcelona, Spain" => 30,
-        "Reykjavík, Iceland" => 45
+        "Reykjavík, Iceland" => 45,
+        "Amsterdam, Netherlands" => 650
     }
     return cities
 end

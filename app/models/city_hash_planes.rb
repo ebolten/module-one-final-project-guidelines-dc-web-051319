@@ -7,8 +7,8 @@ def city_hash_planes
         "New York City, United States" => 370,
         "Istanbul, Turkey" => 526,
         "Düsseldorf, Germany" => 513, 
-        "Austin Texas, United States" => 230,
-        "Miraflores, Peru" => 230,
+        "Austin Texas, United States" => 400,
+        "Miraflores, Peru" => 330,
         "Luxembourg City, Luxembourg" => 1200,
         "London, United Kingdom" => 640,
         "Tunis, Tunisia" => 900,
@@ -26,7 +26,9 @@ def city_hash_planes
         "Rome, Italy" => 900,
         "Amelia, Italy" => 290,
         "Barcelona, Spain" => 800,
-        "Reykjavík, Iceland" => 500
+        "Reykjavík, Iceland" => 500,
+        "Shanghai, China" => 1200,
+        "Amsterdam, Netherlands" => 650
     }
     return cities
 end

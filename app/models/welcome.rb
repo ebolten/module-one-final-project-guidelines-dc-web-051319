@@ -5,6 +5,19 @@ require_relative 'city_hash_planes.rb'
 require_relative 'city_hash_train.rb'
 require_relative 'city_hash_bus.rb'
 
+#will print a cool icon
+def graffiti
+    puts "  ______                      _   _______                  _ "
+    puts " |  ____|                    | | |__   __|                | |"
+    puts " | |__ _ __ _   _  __ _  __ _| |    | |_ __ __ ___   _____| |"
+    puts " |  __| '__| | | |/ _` |/ _` | |    | | '__/ _` \\ \\ / / _ \\ |"
+    puts " | |  | |  | |_| | (_| | (_| | |    | | | | (_| |\\ V /  __/ |"
+    puts " |_|  |_|   \\__,_|\\__, |\\__,_|_|    |_|_|  \\__,_| \\_/ \\___|_|"
+    puts "                   __/ |                                     "
+    puts "                  |___/                                      "
+end
+
+
 #the welcome message
 def intro
     puts "Welcome to Frugal Travel!"
@@ -15,7 +28,7 @@ def get_traveller
     puts "Please Enter Your Name:"
     name = gets.chomp.to_s
     puts "\n"
-    puts "Please Enter Your Start Location:"
+    puts "Please Enter Your Start Location (City, Country):"
     start = gets.chomp.to_s
     puts "\n"
     puts "Please Enter Your Budget:"
@@ -81,7 +94,8 @@ def valid_cities(city_hash,traveller)
             array_city = city.split(", ")
 
             if traveller_country[1] == array_city[1]
-                price -= 100
+                percent_off = price * 0.5
+                price -= percent_off
                 non_international_cities[city] = price
             end
         end
@@ -104,7 +118,7 @@ end
 
 #returns the user's selected city
 def select_city(cities_you_can_afford)
-    puts "Choose Your Destination:"
+    puts "Choose Your Destination (City, Country):"
     user_choice = gets.chomp.to_s
 
     affordable_city = []
@@ -160,12 +174,16 @@ def new_currency(country)
             currency = "Rupee"
         when "Spain"
             currency = "Euro"
+        when "Netherlands"
+            currency = "Euro"
         when "Peru"
             currency = "Sole"
         when "Japan"
             currency = "Yen"
         when "Turkey"
             currency = "Lira"
+        when "China"
+            currency = "Yuan"
         else
             currency = "unknown for this country"
         end
