@@ -1,63 +1,23 @@
-# Module One Final Project Guidelines
-
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
-
-For your final project, we'll be building a Command Line database application.
-
-## Project Requirements
-
-### Option One - Data Analytics Project
-
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
-3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
-4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface.
-
-  **Resource:** [Easy Access APIs](https://github.com/learn-co-curriculum/easy-access-apis)
-
-### Option Two - Command Line CRUD App
-
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have a minimum of three models.
-3. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos.
-4. Use good OO design patterns. You should have separate models for your runner and CLI interface.
-
-### Brainstorming and Proposing a Project Idea
-
-Projects need to be approved prior to launching into them, so take some time to brainstorm project options that will fulfill the requirements above.  You must have a minimum of four [user stories](https://en.wikipedia.org/wiki/User_story) to help explain how a user will interact with your app.  A user story should follow the general structure of `"As a <role>, I want <goal/desire> so that <benefit>"`. In example, if we were creating an app to randomly choose nearby restaurants on Yelp, we might write:
-
-* As a user, I want to be able to enter my name to retrieve my records
-* As a user, I want to enter a location and be given a random nearby restaurant suggestion
-* As a user, I should be able to reject a suggestion and not see that restaurant suggestion again
-* As a user, I want to be able to save to and retrieve a list of favorite restaurant suggestions
-
-## Instructions
-
-1. Fork and clone this repository.
-2. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable.
-3. Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
-4. Make sure your project checks off each of the above requirements.
-5. Prepare a video demo (narration helps!) describing how a user would interact with your working project.
-    * The video should:
-      - Have an overview of your project.(2 minutes max)
-6. Prepare a presentation to follow your video.(3 minutes max)
-    * Your presentation should:
-      - Describe something you struggled to build, and show us how you ultimately implemented it in your code.
-      - Discuss 3 things you learned in the process of working on this project.
-      - Address, if anything, what you would change or add to what you have today?
-      - Present any code you would like to highlight.   
-7. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
-
----
-### Common Questions:
-- How do I turn off my SQL logger?
-```ruby
-# in config/environment.rb add this line:
-ActiveRecord::Base.logger = nil
-```
-
-
 ## DESCRIPTION
-Frugal Travel is an application that is designed to help people find travel options and destinations within their price range. They can select whether they would like to travel internationally, what type of transportation method they would like to use, and more.
+Frugal Travel is an application that is designed to help people find travel options and destinations within their price range. They can select whether they would like to travel internationally, what type of transportation method they would like to use, and be given options of cities and prices based on their preferences.
+
+Once the user enters their info, their data will be written to the database table "travellers." Then, once the choose their destination, it will be put in a table as well called "destinations." Finally, the last database called "bookings" will save their booking (price they paid, their traveller id, their destination id and their chosen method of transportation).
+
+## FEATURES OF THE APP
+- User is able to select their method of transportation and the price will vary depending on the one they choose.
+- User is able to enter their city and country and choose whether they would like to travel internationally. If not, the app will only select cities within their country.
+- User is able to enter their budget and the app will show them cities they can travel to based on their budget.
+- User is able to see the city they travelled from, their destination city, and the currency their new destination will use.
+
+## SOMETHING WE STRUGGLED TO BUILD. . .
+We struggled mostly with learning how to depend on ActiveRecord instead of manually writing the methods out. One of those examples would be defining the many-to-many relationships without manually coding them, but using macros instead. The initializer methods were already created with ActiveRecord and the columns of the database, therefore we ran into a few erros once we tried to manually define those methods.
+
+## 3 THINGS WE LEARNED
+1. We learned how to depend on ActiveRecord to create the methods we'd gotten used to manually creating. Examples would be defining our many-to-many class relationships, our methods with ORM to connect our classes to the databases, and others.
+
+2. We learned how to shorten our methods by using helper methods and dividing our methods by their individual functions rather than putting more than one use in each method. Therefore, at the end of our project, we had cleaner code to work with.
+
+3. We learned how to design and polish an app for the user experience. The command-line-interface was important for the user to understand and use our app, therefore, the design was important.
+
+## THINGS WE WOULD CHANGE
+If we could change something about our app, it would be to incorporate APIs into our data. For the app, we seeded our own data, therefore it is not representative of reality. If we added APIs, however, somebody could really use our app to find a flight within their budget. If we had more time and knew more about APIs, we would replace our seeded data with the data retrieved from the API.
